@@ -10,7 +10,7 @@ const Header = () => {
       <Container>
         {/* <Navbar.Brand href="/">Minh Than</Navbar.Brand> */}
         <NavLink to="/" className="navbar-brand">
-          Minh Than
+          React App
         </NavLink>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
@@ -27,6 +27,8 @@ const Header = () => {
           </Nav>
           {/* dropdown */}
           <Nav>
+            <button className="btn-login">Log In</button>
+            <button className="btn-signup">Sign Up</button>
             <NavDropdown title="Setting" id="basic-nav-dropdown">
               <NavDropdown.Item>Log in</NavDropdown.Item>
               <NavDropdown.Item>Log out</NavDropdown.Item>
