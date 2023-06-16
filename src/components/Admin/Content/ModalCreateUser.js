@@ -57,6 +57,7 @@ const ModalCreateUser = (props) => {
     if (data && data.EC === 0) {
       toast.success("Tao moi thanh cong");
       handleClose();
+      await props.fetchListUsers();
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);
@@ -85,7 +86,7 @@ const ModalCreateUser = (props) => {
               />
             </div>
             <div className="col-md-6">
-              <label fclassName="form-label">Password</label>
+              <label className="form-label">Password</label>
               <input
                 type="password"
                 className="form-control"
