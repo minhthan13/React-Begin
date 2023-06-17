@@ -22,8 +22,12 @@ const ManageUser = (props) => {
     fetchListUsers();
   }, []);
   const handleClickBtnUpdate = (user) => {
+    console.log(">>> check user log: ", user);
     setShowModalUpdateUser(true);
     setDataUpdate(user);
+  };
+  const resetUpdateModal = () => {
+    setDataUpdate({});
   };
   return (
     <div className="manage-user-container">
@@ -51,6 +55,8 @@ const ManageUser = (props) => {
           show={showModalUpdateUser}
           setShow={setShowModalUpdateUser}
           dataUpdate={dataUpdate}
+          fetchListUsers={fetchListUsers}
+          resetUpdateModal={resetUpdateModal}
         />
       </div>
     </div>
