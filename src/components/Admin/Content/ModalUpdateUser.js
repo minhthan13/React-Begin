@@ -52,9 +52,11 @@ const ModalUpdateUser = (props) => {
     let data = await putUpdateUser(dataUpdate.id, username, role, image);
 
     if (data && data.EC === 0) {
-      toast.success("Tao moi thanh cong");
+      toast.success(data.EM);
       handleClose();
-      await props.fetchListUsers();
+      // await props.fetchListUsers();
+
+      await props.fetchListUsersWithPaginate(props.currentPage);
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);
