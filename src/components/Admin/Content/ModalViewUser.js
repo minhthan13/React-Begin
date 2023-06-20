@@ -6,17 +6,6 @@ import _ from "lodash";
 
 const ModalViewUser = (props) => {
   const { show, setShow, dataView } = props;
-  const handleClose = () => {
-    setShow(false);
-    setEmail("");
-    setPassword("");
-    setImage("");
-    setRole("USER");
-    setPreviewImage("");
-    setUsername("");
-    props.resetUpdateModal();
-  };
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -36,6 +25,17 @@ const ModalViewUser = (props) => {
       }
     }
   }, [dataView]);
+
+  const handleClose = () => {
+    setShow(false);
+    setEmail("");
+    setPassword("");
+    setImage("");
+    setRole("USER");
+    setPreviewImage("");
+    setUsername("");
+    props.resetUpdateModal();
+  };
 
   return (
     <>
