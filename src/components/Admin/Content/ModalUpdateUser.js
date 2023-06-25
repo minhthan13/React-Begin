@@ -18,9 +18,6 @@ const ModalUpdateUser = (props) => {
     setUsername("");
     props.resetUpdateModal();
   };
-  const handleShow = () => {
-    setShow(true);
-  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
