@@ -1,0 +1,13 @@
+.Register-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .content-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .back {
+      cursor: pointer;
+    }
+  }
+}
