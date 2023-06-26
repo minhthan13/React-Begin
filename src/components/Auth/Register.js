@@ -11,13 +11,31 @@ const Register = (props) => {
   const [username, setUsername] = useState();
 
   const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
   const handleRegister = async () => {
     //validate
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Invalid email");
+      return;
+    }
+    if (!password) {
+      toast.error("Invalid password");
+      return;
+    }
+    //submit apis
     if (rePassword === password) {
-      //submit apis
       let res = await postRegister(email, username, password);
       if (res && res.EC === 0) {
         toast.success(res.EM);
+        navigate("/login");
       }
       if (res && res.EC !== 0) {
         toast.error(res.EM);
@@ -27,10 +45,19 @@ const Register = (props) => {
     }
   };
   return (
-    <div className="Register-container mt-5">
+    <div className="Register-container ">
+      <div className="header">
+        <span>Already have an account yet?</span>
+        <button
+          onClick={() => {
+            navigate("/login");
+          }}>
+          Login
+        </button>
+      </div>
       <div className="title col-3 mx-auto fs-3 text-center">Register</div>
       <div className="welcome col-3 mx-auto text-center">
-        Hello, my world !!!
+        Start Your Journey?
       </div>
       <div className="content-form col-3 mx-auto">
         <div className="form-group ">
@@ -42,29 +69,38 @@ const Register = (props) => {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
           />
-          <label>Email</label>
+          <label>
+            Email<span className="text-danger">&nbsp;*</span>
+          </label>
           <input
             type={"email"}
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your E-mail"
+            required
           />
-          <label>Password</label>
+          <label>
+            Password<span className="text-danger">&nbsp;*</span>
+          </label>
           <input
             type={"password"}
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            required
           />
-          <label>Confirm Password</label>
+          <label>
+            Confirm Password<span className="text-danger">&nbsp;*</span>
+          </label>
           <input
             type={"password"}
             className="form-control"
             value={rePassword}
             onChange={(e) => setRePassword(e.target.value)}
             placeholder="Confirm Password"
+            required
           />
         </div>
         <div className="text-end">
