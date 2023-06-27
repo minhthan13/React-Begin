@@ -4,6 +4,7 @@ import "./Login.scss";
 import { postLogin } from "../../services/apiServices";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
 
 const Login = (props) => {
   const [email, setEmail] = useState();
@@ -32,10 +33,7 @@ const Login = (props) => {
     //submit apis
     let res = await postLogin(email, password);
     if (res && res.EC === 0) {
-      dispatch({
-        type: "FETCH_USER_LOGIN_SUCCESS",
-        payload: res,
-      });
+      dispatch(doLogin(res));
       toast.success(res.EM);
       navigate("/");
     }
