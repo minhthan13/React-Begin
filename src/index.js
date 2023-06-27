@@ -8,7 +8,9 @@ import Layout from "./Layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <Layout />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  </Provider>
 );
