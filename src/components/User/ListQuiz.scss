@@ -1,0 +1,20 @@
+.list-quiz-container {
+  display: flex;
+  gap: 50px;
+  margin-top: 24px;
+  .card {
+    img {
+      height: 288px;
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-content: stretch;
+      p {
+        margin: 0;
+        padding: 10px 0;
+      }
+    }
+  }
+}
