@@ -36,7 +36,7 @@ const postLogin = (userEmail, userPassword) => {
   return axios.post("api/v1/login", {
     email: userEmail,
     password: userPassword,
-    delay: 3000,
+    // delay: 3000,
   });
 };
 
@@ -51,6 +51,9 @@ const postRegister = (email, username, password) => {
 const getQuizByUser = () => {
   return axios.get("api/v1/quiz-by-participant");
 };
+const getDataQuiz = (quizId) => {
+  return axios.get(`api/v1/questions-by-quiz?quizId=${quizId}`);
+};
 export {
   postCreateNewUser,
   getAllUsers,
@@ -60,4 +63,5 @@ export {
   postLogin,
   postRegister,
   getQuizByUser,
+  getDataQuiz,
 };
