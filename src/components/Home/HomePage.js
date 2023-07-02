@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import videoHomepage from "../../assets/video-homepage.webm";
+import videoHomepage from "../../assets/video-homepage.mp4";
 import { useSelector } from "react-redux";
 const HomePage = (props) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -8,7 +8,7 @@ const HomePage = (props) => {
   return (
     <div className="homepage-container">
       <video autoPlay muted loop>
-        <source src={videoHomepage} type="video/webm" />
+        <source src={videoHomepage} type="video/mp4" />
       </video>
       <div className="homepage-content">
         <div className="title-1">There's the better way to ask</div>

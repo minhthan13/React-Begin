@@ -71,7 +71,7 @@ const Login = (props) => {
           <input
             type={"password"}
             className="form-control"
-            value={password}
+            // value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
