@@ -5,15 +5,17 @@ const Question = (props) => {
    if (_.isEmpty(data)) {
       return <></>;
    }
+   const handleCheckBox = (e, aId, qId) => {
+      props.handleCheckBox(aId, qId);
+   };
    return (
       <>
-         {data.image && (
+         {data.image ? (
             <div className="q-image">
-               <img
-                  src={`data:image/jpeg;base64,${data.image}`}
-                  alt="question-image"
-               />
+               <img src={`data:image/jpeg;base64,${data.image}`} />
             </div>
+         ) : (
+            <div className="q-image"></div>
          )}
 
          <div className="question">
@@ -29,7 +31,10 @@ const Question = (props) => {
                            <input
                               className="form-check-input"
                               type="checkbox"
-                              value=""
+                              onChange={(e) =>
+                                 handleCheckBox(e, a.id, data.questionId)
+                              }
+                              checked={a.isSelected}
                            />
                            <label className="form-check-label">
                               {a.description}
