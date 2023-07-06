@@ -1,67 +1,72 @@
 import axios from "../utils/axiosCustomize";
 const postCreateNewUser = (email, password, username, role, image) => {
-  //submit data
-  const data = new FormData();
-  data.append("email", email);
-  data.append("password", password);
-  data.append("username", username);
-  data.append("role", role);
-  data.append("userImage", image);
+   //submit data
+   const data = new FormData();
+   data.append("email", email);
+   data.append("password", password);
+   data.append("username", username);
+   data.append("role", role);
+   data.append("userImage", image);
 
-  return axios.post("api/v1/participant", data);
+   return axios.post("api/v1/participant", data);
 };
 
 const getAllUsers = () => {
-  return axios.get("api/v1/participant/all");
+   return axios.get("api/v1/participant/all");
 };
 
 const putUpdateUser = (id, username, role, image) => {
-  //submit data
-  const data = new FormData();
-  data.append("id", id);
-  data.append("username", username);
-  data.append("role", role);
-  data.append("userImage", image);
+   //submit data
+   const data = new FormData();
+   data.append("id", id);
+   data.append("username", username);
+   data.append("role", role);
+   data.append("userImage", image);
 
-  return axios.put("api/v1/participant", data);
+   return axios.put("api/v1/participant", data);
 };
 const deleteUser = (userId) => {
-  return axios.delete("api/v1/participant", { data: { id: userId } });
+   return axios.delete("api/v1/participant", { data: { id: userId } });
 };
 const getUserPaginate = (page, limit) => {
-  return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
+   return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };
 
 const postLogin = (userEmail, userPassword) => {
-  return axios.post("api/v1/login", {
-    email: userEmail,
-    password: userPassword,
-    // delay: 3000,
-  });
+   return axios.post("api/v1/login", {
+      email: userEmail,
+      password: userPassword,
+      // delay: 3000,
+   });
 };
 
 const postRegister = (email, username, password) => {
-  return axios.post("api/v1/register", {
-    email,
-    username,
-    password,
-  });
+   return axios.post("api/v1/register", {
+      email,
+      username,
+      password,
+   });
 };
 
 const getQuizByUser = () => {
-  return axios.get("api/v1/quiz-by-participant");
+   return axios.get("api/v1/quiz-by-participant");
 };
 const getDataQuiz = (quizId) => {
-  return axios.get(`api/v1/questions-by-quiz?quizId=${quizId}`);
+   return axios.get(`api/v1/questions-by-quiz?quizId=${quizId}`);
+};
+const postSubmitQuiz = (data) => {
+   console.log("check post data ", { ...data });
+   return axios.post(`api/v1/quiz-submit`, { ...data });
 };
 export {
-  postCreateNewUser,
-  getAllUsers,
-  putUpdateUser,
-  deleteUser,
-  getUserPaginate,
-  postLogin,
-  postRegister,
-  getQuizByUser,
-  getDataQuiz,
+   postCreateNewUser,
+   getAllUsers,
+   putUpdateUser,
+   deleteUser,
+   getUserPaginate,
+   postLogin,
+   postRegister,
+   getQuizByUser,
+   getDataQuiz,
+   postSubmitQuiz,
 };
