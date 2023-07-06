@@ -19,7 +19,7 @@ const DetailQuiz = (props) => {
       let res = await getDataQuiz(quizID);
       if (res && res.EC === 0) {
          let raw = res.DT;
-         console.log("check raw data: ", raw);
+         // console.log("check raw data: ", raw);
          let data = _.chain(raw)
             .groupBy("id")
             .map((value, key) => {
@@ -48,13 +48,50 @@ const DetailQuiz = (props) => {
          setDataQuiz(data);
       }
    };
-   console.log("check data quiz: ", dataQuiz);
    const handelPrev = () => {
       if (index - 1 < 0) return;
       setIndex(index - 1);
    };
    const handelNext = () => {
       if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
+   };
+   const handleFinishQuiz = () => {
+      console.log("check data ", dataQuiz);
+      let payload = {
+         quizId: +quizID,
+         answers: [],
+      };
+      let answers = [];
+      if (dataQuiz && dataQuiz.length > 0) {
+         dataQuiz.forEach((item) => {
+            let questionId = item.questionId;
+            let userAnswerId = [];
+            item.answers.forEach((a) => {
+               if (a.isSelected) {
+                  userAnswerId.push(a.id);
+               }
+            });
+            answers.push({
+               questionId: +questionId,
+               userAnswerId: userAnswerId,
+            });
+         });
+         payload.answers = answers;
+         console.log("final Answers >>>", payload);
+         //    {
+         //       "quizId": 1,
+         //       "answers": [
+         //           {
+         //               "questionId": 1,
+         //               "userAnswerId": [3]
+         //           },
+         //           {
+         //               "questionId": 2,
+         //               "userAnswerId": [6]
+         //           }
+         //       ]
+         //   }
+      }
    };
    const handleCheckBox = (answerId, questionId) => {
       let dataQuizClone = _.cloneDeep(dataQuiz); //clone toan bo object
@@ -68,7 +105,7 @@ const DetailQuiz = (props) => {
             }
             return item;
          });
-         console.log("Check question answers: ", question.answers);
+         // console.log("Check question answers: ", question.answers);
       }
       let index = dataQuizClone.findIndex(
          (item) => +item.questionId === +questionId
@@ -106,7 +143,9 @@ const DetailQuiz = (props) => {
                   onClick={() => handelNext()}>
                   Next
                </button>
-               <button className="btn btn-warning" onClick={() => handelNext()}>
+               <button
+                  className="btn btn-warning"
+                  onClick={() => handleFinishQuiz()}>
                   Finish
                </button>
             </div>
