@@ -1,12 +1,20 @@
 .quiz-container {
    padding: 15px;
    .title {
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 600;
    }
    legend {
       font-size: 13px;
    }
    .add-new-quizz {
+   }
+   .list-detail {
+      padding: 15px;
+   }
+   .accordion-button {
+      font-size: 25px;
+      background: #72adf1;
+      color: #c53ca7;
    }
 }
