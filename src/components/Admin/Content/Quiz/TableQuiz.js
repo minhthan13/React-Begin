@@ -1,18 +1,6 @@
-import { useEffect, useState } from "react";
-import { getAllQuizForAdmin } from "../../../../services/apiServices";
 const TableQuiz = (props) => {
-   const [listQuiz, setListQuiz] = useState([]);
+   const { listQuiz } = props;
 
-   useEffect(() => {
-      fecthQuiz();
-   }, []);
-   const fecthQuiz = async () => {
-      let res = await getAllQuizForAdmin();
-      console.log("check res: ", res);
-      if (res && res.EC === 0) {
-         setListQuiz(res.DT);
-      }
-   };
    return (
       <>
          <div>List Quizzes: </div>
@@ -36,8 +24,16 @@ const TableQuiz = (props) => {
                            <td>{quiz.description}</td>
                            <td>{quiz.difficulty}</td>
                            <td className="d-flex justify-content-evenly">
-                              <button className="btn btn-warning">Edit</button>
-                              <button className="btn btn-danger">Delete</button>
+                              <button
+                                 className="btn btn-warning"
+                                 onClick={() => props.handleBtnEdit(quiz)}>
+                                 Edit
+                              </button>
+                              <button
+                                 className="btn btn-danger"
+                                 onClick={() => props.handleBtnDelete(quiz)}>
+                                 Delete
+                              </button>
                            </td>
                         </tr>
                      );

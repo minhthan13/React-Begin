@@ -1,10 +1,15 @@
 import "./ManageQuiz.scss";
 import Select from "react-select";
-import { useState } from "react";
-import { postCreateNewQuiz } from "../../../../services/apiServices";
+import { useState, useEffect } from "react";
+import {
+   postCreateNewQuiz,
+   getAllQuizForAdmin,
+} from "../../../../services/apiServices";
 import { toast } from "react-toastify";
 import TableQuiz from "./TableQuiz";
 import Accordion from "react-bootstrap/Accordion";
+import ModalDeleteQuiz from "./ModalDeleteQuiz";
+import ModalEditQuiz from "./ModalEditQuiz";
 
 const options = [
    { value: "EASY", label: "EASY" },
@@ -16,7 +21,20 @@ const ManageQuiz = (props) => {
    const [description, setDescription] = useState("");
    const [type, setType] = useState("EASY");
    const [image, setImage] = useState(null);
-
+   const [listQuiz, setListQuiz] = useState([]);
+   const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false);
+   const [showModalEditQuiz, setShowModalEditQuiz] = useState(false);
+   const [dataDeleteQuiz, setDataDeleteQuiz] = useState();
+   const [dataEditQuiz, setDataEditQuiz] = useState();
+   useEffect(() => {
+      fecthQuiz();
+   }, []);
+   const fecthQuiz = async () => {
+      let res = await getAllQuizForAdmin();
+      if (res && res.EC === 0) {
+         setListQuiz(res.DT);
+      }
+   };
    const handleChageFile = (e) => {
       if (e.target && e.target.files && e.target.files[0]) {
          setImage(e.target.files[0]);
@@ -34,10 +52,23 @@ const ManageQuiz = (props) => {
          setName("");
          setDescription("");
          setImage(null);
+         await fecthQuiz();
       } else {
          toast.error(res.EM);
       }
    };
+   const handleBtnDelete = (quiz) => {
+      setShowModalDeleteQuiz(true);
+      setDataDeleteQuiz(quiz);
+   };
+   const handleBtnEdit = (quiz) => {
+      setShowModalEditQuiz(true);
+      setDataEditQuiz(quiz);
+   };
+   const resetEditQuiz = () => {
+      setDataEditQuiz({});
+   };
+
    return (
       <div className="quiz-container">
          <Accordion defaultActiveKey="0" flush>
@@ -99,8 +130,25 @@ const ManageQuiz = (props) => {
             </Accordion.Item>
          </Accordion>
          <div className="list-detail">
-            <TableQuiz />
+            <TableQuiz
+               listQuiz={listQuiz}
+               handleBtnDelete={handleBtnDelete}
+               handleBtnEdit={handleBtnEdit}
+            />
          </div>
+         <ModalDeleteQuiz
+            show={showModalDeleteQuiz}
+            setShow={setShowModalDeleteQuiz}
+            dataDelete={dataDeleteQuiz}
+            fecthQuiz={fecthQuiz}
+         />
+         <ModalEditQuiz
+            show={showModalEditQuiz}
+            setShow={setShowModalEditQuiz}
+            dataEditQuiz={dataEditQuiz}
+            fecthQuiz={fecthQuiz}
+            resetEditQuiz={resetEditQuiz}
+         />
       </div>
    );
 };
